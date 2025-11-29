@@ -13,7 +13,8 @@ Preferred communication style: Simple, everyday language.
 ### Bot Framework
 - **Technology**: discord.js v14 with slash commands
 - **Rationale**: Modern Discord API interaction with built-in support for slash commands, embeds, and interactive components (buttons)
-- **Gateway Intents**: Guilds, GuildMessages, and MessageContent for monitoring server messages and responding to triggers
+- **Gateway Intents**: Guilds, GuildMessages, MessageContent, and DirectMessages for monitoring server messages, responding to triggers, and handling DMs
+- **DM Handling**: Responds to any direct message with a random Minky image
 
 ### Command System
 - **Slash Commands**: Native Discord slash command registration using REST API
