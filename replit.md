@@ -1,22 +1,11 @@
 # Discord Bot
 
 ## Overview
-A simple Discord bot built with Node.js and discord.js that manages custom presence settings and clears the default BotGhost status.
+A simple Discord bot built with Node.js and discord.js 
 
 ## Project Structure
 - `index.js` - Main bot entry point
 - `package.json` - Project dependencies and scripts
-
-## Setup
-1. Set the `DISCORD_BOT_TOKEN` secret with your bot token from the Discord Developer Portal
-2. Run the bot using `npm start`
-
-## Features
-- Connects to Discord using discord.js
-- Clears default BotGhost status on startup
-- Sets bot status to 'online' with no activity text
-- Error handling for connection issues
-- Express web server for keep-alive functionality (port 3000)
 
 ### Slash Commands
 - `/minky` - Get a random Minky cat image (displayed in pink embed)
