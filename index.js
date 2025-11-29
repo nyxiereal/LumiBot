@@ -84,6 +84,13 @@ client.on('interactionCreate', async (interaction) => {
   }
 
   if (interaction.commandName === 'addresponder') {
+    if (!interaction.member.permissions.has('Administrator')) {
+      return interaction.reply({
+        content: '❌ You need Administrator permissions to use this command.',
+        ephemeral: true
+      });
+    }
+
     const trigger = interaction.options.getString('trigger').toLowerCase();
     const response = interaction.options.getString('response');
     const channel = interaction.options.getChannel('channel');
