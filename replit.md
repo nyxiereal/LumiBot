@@ -23,11 +23,15 @@ A simple Discord bot built with Node.js and discord.js that manages custom prese
 - `/addresponder` - Add a new autoresponder with trigger phrase, response message, and optional channel restriction
 
 ### Autoresponder
-- In-memory storage for trigger-response pairs
+- Server-specific storage (each Discord server has its own autoresponders)
+- In-memory storage keyed by guild ID
 - Supports optional channel-specific restrictions
 - Case-insensitive trigger matching
+- Requires Administrator permissions to add
 
 ## Recent Changes
+- November 29, 2025: Made autoresponders server-specific instead of global
+- November 29, 2025: Added Administrator permission check for /addresponder
 - November 29, 2025: Added autoresponder feature with /addresponder command
 - November 29, 2025: Added /minky command with embed format
 - November 29, 2025: Initial project setup with discord.js
