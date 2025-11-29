@@ -47,9 +47,14 @@ client.on('interactionCreate', async (interaction) => {
 
   if (interaction.commandName === 'minky') {
     try {
+      const imageUrl = 'https://minky.materii.dev';
+
       await interaction.reply({
-        content: "Here's a random Minky 🐱",
-        files: ["https://minky.materii.dev"]
+        embeds: [{
+          title: "Here's a random Minky 🐱",
+          image: { url: imageUrl },
+          color: 0xFFC0CB
+        }]
       });
     } catch (err) {
       console.error(err);
