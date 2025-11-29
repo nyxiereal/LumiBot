@@ -31,7 +31,8 @@ Preferred communication style: Simple, everyday language.
 │   │   └── eventLoader.js    # Loads all events from events/
 │   └── utils/                # Utility modules
 │       ├── database.js       # PostgreSQL operations & data caching
-│       └── helpers.js        # Interval parsing, Minky image fetching
+│       ├── helpers.js        # Interval parsing, Minky image fetching
+│       └── prefixParser.js   # Prefix command parsing utilities
 ├── package.json              # Dependencies and scripts
 ├── replit.md                 # Project documentation and changelog
 └── README.md                 # Project documentation
@@ -46,17 +47,17 @@ Preferred communication style: Simple, everyday language.
 - **DM Handling**: Responds to any direct message with a random Minky image
 
 ### Command System
+- **Dual Command Support**: Both slash commands and prefix commands (`l!`) are supported
 - **Slash Commands**: Native Discord slash command registration using REST API
+- **Prefix Commands**: Text-based commands using `l!` prefix for quick input
 - **Command Types**:
-  - `/minky` - Image sharing with file attachments
-  - `/minkyinterval` - Admin-only command to schedule automatic Minky images at set intervals (e.g., 30m, 1h, 6h, 1d). Sends an immediate first image when set up.
-  - `/stopminky` - Admin-only command to stop scheduled Minky images for a channel
-  - `/install` - Interactive installation guide with button-based platform selection. Server-specific responses:
-    - **Kettu server** (1368145952266911755): Android/iOS options with Kettu installation guides
-    - **Aliucord server** (811255666990907402): Android-only option with Aliucord Manager link
-  - `/addresponder` - Admin-only command for creating autoresponders
-  - `/deleteresponder` - Admin-only command for removing autoresponders
-  - `/setstatus` - Owner-only command to set bot status (online, idle, dnd) and status message
+  - `/minky` or `l!minky` - Image sharing with file attachments
+  - `/minkyinterval` or `l!minkyinterval <interval> <#channel>` - Admin-only command to schedule automatic Minky images
+  - `/stopminky` or `l!stopminky <#channel>` - Admin-only command to stop scheduled Minky images
+  - `/install` or `l!install [android|ios]` - Installation guide (buttons for slash, direct platform for prefix)
+  - `/addresponder` or `l!addresponder <trigger> | <response> [#channel]` - Admin-only autoresponder creation
+  - `/deleteresponder` or `l!deleteresponder <trigger>` - Admin-only autoresponder removal
+  - `/setstatus` or `l!setstatus <online|idle|dnd> <message>` - Owner-only bot status
 - **Permission Model**: Administrator permission checks enforced for autoresponder and Minky interval management. Owner-only checks for status management.
 
 ### Data Persistence
@@ -134,6 +135,7 @@ Preferred communication style: Simple, everyday language.
 ## Changelog
 
 ### Recent Changes
+- November 29, 2025: Added prefix command support (`l!`) alongside slash commands
 - November 29, 2025: Refactored bot into modular architecture (commands/, events/, utils/, handlers/ folders)
 - November 29, 2025: Deleted render.yaml (redundant with Render dashboard config)
 - November 29, 2025: Cleared assets folder for cleanup
