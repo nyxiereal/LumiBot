@@ -3,6 +3,7 @@ const express = require('express');
 const { Pool } = require('pg');
 
 const TOKEN = process.env.DISCORD_BOT_TOKEN;
+const OWNER_ID = process.env.DISCORD_OWNER_ID;
 
 if (!TOKEN) {
   console.error('Error: DISCORD_BOT_TOKEN environment variable is not set');
@@ -198,7 +199,23 @@ client.once('clientReady', async () => {
           .setRequired(true)),
     new SlashCommandBuilder()
       .setName('install')
-      .setDescription('Get installation instructions')
+      .setDescription('Get installation instructions'),
+    new SlashCommandBuilder()
+      .setName('setstatus')
+      .setDescription('Set bot status (Owner only)')
+      .addStringOption(option =>
+        option.setName('status')
+          .setDescription('Bot status')
+          .addChoices(
+            { name: 'Online', value: 'online' },
+            { name: 'Idle', value: 'idle' },
+            { name: 'Do Not Disturb', value: 'dnd' }
+          )
+          .setRequired(true))
+      .addStringOption(option =>
+        option.setName('message')
+          .setDescription('Status message')
+          .setRequired(true))
   ];
 
   const rest = new REST({ version: '10' }).setToken(TOKEN);
@@ -309,6 +326,37 @@ client.on('interactionCreate', async (interaction) => {
           color: 0x5865F2
         }],
         components: [row],
+        ephemeral: true
+      });
+    }
+    return;
+  }
+
+  if (interaction.commandName === 'setstatus') {
+    if (!OWNER_ID || interaction.user.id !== OWNER_ID) {
+      return interaction.reply({
+        content: '❌ Only the bot owner can use this command.',
+        ephemeral: true
+      });
+    }
+
+    const status = interaction.options.getString('status');
+    const message = interaction.options.getString('message');
+
+    try {
+      await client.user.setPresence({
+        activities: [{ name: message, type: 0 }],
+        status: status
+      });
+
+      await interaction.reply({
+        content: `✅ Bot status updated to **${status}** with message: "${message}"`,
+        ephemeral: true
+      });
+    } catch (err) {
+      console.error('Error setting bot status:', err);
+      await interaction.reply({
+        content: '❌ Failed to update bot status.',
         ephemeral: true
       });
     }
