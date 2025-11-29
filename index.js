@@ -1,4 +1,5 @@
 const { Client, GatewayIntentBits } = require('discord.js');
+const express = require('express');
 
 const TOKEN = process.env.DISCORD_BOT_TOKEN;
 
@@ -27,3 +28,10 @@ client.on('error', (error) => {
 });
 
 client.login(TOKEN);
+
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+app.get('/', (req, res) => res.send('Bot is alive!'));
+
+app.listen(PORT, () => console.log(`Webserver running on port ${PORT}`));

@@ -16,6 +16,7 @@ A simple Discord bot built with Node.js and discord.js that manages custom prese
 - Clears default BotGhost status on startup
 - Sets bot status to 'online' with no activity text
 - Error handling for connection issues
+- Express web server for keep-alive functionality (port 3000)
 
 ## Recent Changes
 - November 29, 2025: Initial project setup with discord.js
