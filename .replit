@@ -31,3 +31,8 @@ args = "node src/index.js"
 [[ports]]
 localPort = 3000
 externalPort = 80
+
+[userenv]
+
+[userenv.shared]
+DISCORD_OWNER_ID = "650805815623680030"
