@@ -205,7 +205,7 @@ client.once('clientReady', async () => {
           .setRequired(true)),
     new SlashCommandBuilder()
       .setName('install')
-      .setDescription('Get Kettu installation instructions')
+      .setDescription('Get installation instructions')
   ];
 
   const rest = new REST({ version: '10' }).setToken(TOKEN);
@@ -228,17 +228,32 @@ client.once('clientReady', async () => {
 client.on('interactionCreate', async (interaction) => {
   if (interaction.isButton()) {
     if (interaction.customId === 'install_android') {
-      await interaction.reply({
-        embeds: [{
-          title: 'Android Installation',
-          description: '**Choose your method:**\n\n' +
-            '**Root with Xposed** → [KettuXposed](https://github.com/C0C0B01/KettuXposed/releases/latest)\n\n' +
-            '**Non-root** → [KettuManager](https://github.com/C0C0B01/KettuManager/releases/latest)\n\n' +
-            '*If you don\'t know what root is, go with KettuManager*',
-          color: 0x3DDC84
-        }],
-        ephemeral: true
-      });
+      const isAliucord = interaction.guildId === '811255666990907402';
+      
+      if (isAliucord) {
+        await interaction.reply({
+          embeds: [{
+            title: 'Aliucord Installation',
+            description: '**Download the Manager:**\n\n' +
+              '[Aliucord Manager](https://github.com/Aliucord/Manager/releases/latest)\n\n' +
+              '*Use the manager to install and manage Aliucord*',
+            color: 0x3DDC84
+          }],
+          ephemeral: true
+        });
+      } else {
+        await interaction.reply({
+          embeds: [{
+            title: 'Android Installation',
+            description: '**Choose your method:**\n\n' +
+              '**Root with Xposed** → [KettuXposed](https://github.com/C0C0B01/KettuXposed/releases/latest)\n\n' +
+              '**Non-root** → [KettuManager](https://github.com/C0C0B01/KettuManager/releases/latest)\n\n' +
+              '*If you don\'t know what root is, go with KettuManager*',
+            color: 0x3DDC84
+          }],
+          ephemeral: true
+        });
+      }
       return;
     }
 
@@ -261,27 +276,49 @@ client.on('interactionCreate', async (interaction) => {
   if (!interaction.isChatInputCommand()) return;
 
   if (interaction.commandName === 'install') {
-    const row = new ActionRowBuilder()
-      .addComponents(
-        new ButtonBuilder()
-          .setCustomId('install_android')
-          .setLabel('Android')
-          .setStyle(ButtonStyle.Success),
-        new ButtonBuilder()
-          .setCustomId('install_ios')
-          .setLabel('iOS')
-          .setStyle(ButtonStyle.Primary)
-      );
+    const isAliucord = interaction.guildId === '811255666990907402';
+    
+    if (isAliucord) {
+      const row = new ActionRowBuilder()
+        .addComponents(
+          new ButtonBuilder()
+            .setCustomId('install_android')
+            .setLabel('Android')
+            .setStyle(ButtonStyle.Success)
+        );
 
-    await interaction.reply({
-      embeds: [{
-        title: 'Kettu Installation',
-        description: 'Select your platform to get installation instructions:',
-        color: 0x5865F2
-      }],
-      components: [row],
-      ephemeral: true
-    });
+      await interaction.reply({
+        embeds: [{
+          title: 'Aliucord Installation',
+          description: 'Select your platform to get installation instructions:',
+          color: 0x5865F2
+        }],
+        components: [row],
+        ephemeral: true
+      });
+    } else {
+      const row = new ActionRowBuilder()
+        .addComponents(
+          new ButtonBuilder()
+            .setCustomId('install_android')
+            .setLabel('Android')
+            .setStyle(ButtonStyle.Success),
+          new ButtonBuilder()
+            .setCustomId('install_ios')
+            .setLabel('iOS')
+            .setStyle(ButtonStyle.Primary)
+        );
+
+      await interaction.reply({
+        embeds: [{
+          title: 'Kettu Installation',
+          description: 'Select your platform to get installation instructions:',
+          color: 0x5865F2
+        }],
+        components: [row],
+        ephemeral: true
+      });
+    }
     return;
   }
 
