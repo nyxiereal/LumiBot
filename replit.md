@@ -21,6 +21,7 @@ A simple Discord bot built with Node.js and discord.js that manages custom prese
 ### Slash Commands
 - `/minky` - Get a random Minky cat image (displayed in pink embed)
 - `/addresponder` - Add a new autoresponder with trigger phrase, response message, and optional channel restriction
+- `/install` - Get Kettu installation instructions (ephemeral, interactive buttons for Android/iOS)
 
 ### Autoresponder
 - Server-specific storage (each Discord server has its own autoresponders)
@@ -30,6 +31,7 @@ A simple Discord bot built with Node.js and discord.js that manages custom prese
 - Requires Administrator permissions to add
 
 ## Recent Changes
+- November 29, 2025: Added /install command with interactive platform selection buttons (Android/iOS) and ephemeral responses
 - November 29, 2025: Made autoresponders server-specific instead of global
 - November 29, 2025: Added Administrator permission check for /addresponder
 - November 29, 2025: Added autoresponder feature with /addresponder command
