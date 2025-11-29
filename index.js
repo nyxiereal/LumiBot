@@ -71,10 +71,10 @@ client.on('interactionCreate', async (interaction) => {
     if (interaction.customId === 'install_android') {
       await interaction.reply({
         embeds: [{
-          title: '📱 Android Installation',
+          title: 'Android Installation',
           description: '**Choose your method:**\n\n' +
-            '🔓 **Root with Xposed** → [KettuXposed](https://github.com/C0C0B01/KettuXposed/releases/latest)\n\n' +
-            '📦 **Non-root** → [KettuManager](https://github.com/C0C0B01/KettuManager/releases/latest)\n\n' +
+            '**Root with Xposed** → [KettuXposed](https://github.com/C0C0B01/KettuXposed/releases/latest)\n\n' +
+            '**Non-root** → [KettuManager](https://github.com/C0C0B01/KettuManager/releases/latest)\n\n' +
             '*If you don\'t know what root is, go with KettuManager*',
           color: 0x3DDC84
         }],
@@ -86,10 +86,10 @@ client.on('interactionCreate', async (interaction) => {
     if (interaction.customId === 'install_ios') {
       await interaction.reply({
         embeds: [{
-          title: '🍎 iOS Installation',
+          title: 'iOS Installation',
           description: '**Choose your method:**\n\n' +
-            '🔓 **Jailbroken** → [KettuTweak](https://github.com/C0C0B01/KettuTweak)\n\n' +
-            '📦 **Jailed** → [BTLoader](https://github.com/CloudySn0w/BTLoader)\n\n' +
+            '**Jailbroken** → [KettuTweak](https://github.com/C0C0B01/KettuTweak)\n\n' +
+            '**Jailed** → [BTLoader](https://github.com/CloudySn0w/BTLoader)\n\n' +
             '*If you don\'t know what jailbreak is, go with BTLoader*',
           color: 0x007AFF
         }],
@@ -107,18 +107,16 @@ client.on('interactionCreate', async (interaction) => {
         new ButtonBuilder()
           .setCustomId('install_android')
           .setLabel('Android')
-          .setStyle(ButtonStyle.Success)
-          .setEmoji('📱'),
+          .setStyle(ButtonStyle.Success),
         new ButtonBuilder()
           .setCustomId('install_ios')
           .setLabel('iOS')
           .setStyle(ButtonStyle.Primary)
-          .setEmoji('🍎')
       );
 
     await interaction.reply({
       embeds: [{
-        title: '📲 Kettu Installation',
+        title: 'Kettu Installation',
         description: 'Select your platform to get installation instructions:',
         color: 0x5865F2
       }],
