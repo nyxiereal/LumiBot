@@ -150,13 +150,6 @@ async function sendMinkyToChannel(channel) {
 client.once('clientReady', async () => {
   console.log(`Logged in as ${client.user.tag}`);
 
-  client.user.setPresence({
-    activities: [],
-    status: 'online'
-  });
-
-  console.log("BotGhost status removed!");
-
   const commands = [
     new SlashCommandBuilder()
       .setName('minky')
