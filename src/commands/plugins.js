@@ -133,10 +133,16 @@ module.exports = {
     .addStringOption(option =>
       option.setName('search')
         .setDescription('Search for plugins by name, description, or author')
+        .setRequired(false))
+    .addBooleanOption(option =>
+      option.setName('send')
+        .setDescription('Send publicly or privately (default: private)')
         .setRequired(false)),
 
   async execute(interaction) {
-    await interaction.deferReply({ flags: MessageFlags.Ephemeral });
+    const send = interaction.options.getBoolean('send') ?? false;
+    const deferOptions = send ? {} : { flags: MessageFlags.Ephemeral };
+    await interaction.deferReply(deferOptions);
 
     const search = interaction.options.getString('search');
     const allPlugins = await fetchPlugins();
@@ -168,12 +174,16 @@ module.exports = {
   },
 
   async executePrefix(message, args) {
-    const search = args.join(' ') || null;
+    const rawArgs = args.join(' ');
+    const sendMatch = rawArgs.match(/send:(true|false)/i);
+    const send = sendMatch ? sendMatch[1].toLowerCase() === 'true' : true;
+    const search = rawArgs.replace(/\s+send:(true|false)/i, '').trim() || null;
+
     const allPlugins = await fetchPlugins();
     const filteredPlugins = search ? filterPlugins(allPlugins, search) : allPlugins;
 
     if (filteredPlugins.length === 0) {
-      return message.reply('No plugins found.');
+      return message.reply({ content: 'No plugins found.', flags: send ? undefined : MessageFlags.Ephemeral });
     }
 
     const page = 0;
@@ -194,7 +204,9 @@ module.exports = {
     });
 
     const row = buildPaginationRow(page, totalPages, !!search);
-    await message.reply({ content, components: [row] });
+    const replyOptions = { content, components: [row] };
+    if (!send) replyOptions.flags = MessageFlags.Ephemeral;
+    await message.reply(replyOptions);
   },
 
   handleButton,
