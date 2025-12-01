@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require('discord.js');
+const { SlashCommandBuilder, MessageFlags } = require('discord.js');
 const { responders, saveAutoresponder } = require('../utils/database');
 const { findChannel } = require('../utils/prefixParser');
 
@@ -23,7 +23,7 @@ module.exports = {
     if (!interaction.member.permissions.has('Administrator')) {
       return interaction.reply({
         content: '❌ You need Administrator permissions to use this command.',
-        ephemeral: true
+        flags: MessageFlags.Ephemeral
       });
     }
 
@@ -39,7 +39,7 @@ module.exports = {
     if (existingIndex !== -1) {
       return interaction.reply({
         content: `❌ An autoresponder with trigger "${trigger}"${channel ? ` in ${channel}` : ''} already exists. Delete it first to replace it.`,
-        ephemeral: true
+        flags: MessageFlags.Ephemeral
       });
     }
 

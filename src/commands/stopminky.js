@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, ChannelType } = require('discord.js');
+const { SlashCommandBuilder, ChannelType, MessageFlags } = require('discord.js');
 const { minkyIntervals, deleteMinkyIntervalFromDb } = require('../utils/database');
 const { findChannel } = require('../utils/prefixParser');
 
@@ -16,7 +16,7 @@ module.exports = {
     if (!interaction.member.permissions.has('Administrator')) {
       return interaction.reply({
         content: '❌ You need Administrator permissions to use this command.',
-        ephemeral: true
+        flags: MessageFlags.Ephemeral
       });
     }
 
@@ -27,7 +27,7 @@ module.exports = {
     if (!minkyIntervals[key]) {
       return interaction.reply({
         content: `❌ No scheduled Minky images found for ${channel}.`,
-        ephemeral: true
+        flags: MessageFlags.Ephemeral
       });
     }
 

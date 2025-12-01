@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, ChannelType } = require('discord.js');
+const { SlashCommandBuilder, ChannelType, MessageFlags } = require('discord.js');
 const { minkyIntervals, saveMinkyInterval } = require('../utils/database');
 const { parseInterval, sendMinkyToChannel, formatInterval } = require('../utils/helpers');
 const { findChannel } = require('../utils/prefixParser');
@@ -21,7 +21,7 @@ module.exports = {
     if (!interaction.member.permissions.has('Administrator')) {
       return interaction.reply({
         content: '❌ You need Administrator permissions to use this command.',
-        ephemeral: true
+        flags: MessageFlags.Ephemeral
       });
     }
 
@@ -34,14 +34,14 @@ module.exports = {
     if (!intervalMs) {
       return interaction.reply({
         content: '❌ Invalid interval format. Use format like: 30m, 1h, 6h, 1d',
-        ephemeral: true
+        flags: MessageFlags.Ephemeral
       });
     }
 
     if (intervalMs < 5 * 60 * 1000) {
       return interaction.reply({
         content: '❌ Minimum interval is 5 minutes (5m).',
-        ephemeral: true
+        flags: MessageFlags.Ephemeral
       });
     }
 

@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require('discord.js');
+const { SlashCommandBuilder, MessageFlags } = require('discord.js');
 const { responders, deleteAutoresponderFromDb } = require('../utils/database');
 
 module.exports = {
@@ -14,7 +14,7 @@ module.exports = {
     if (!interaction.member.permissions.has('Administrator')) {
       return interaction.reply({
         content: '❌ You need Administrator permissions to use this command.',
-        ephemeral: true
+        flags: MessageFlags.Ephemeral
       });
     }
 
@@ -24,7 +24,7 @@ module.exports = {
     if (!responders[guildId] || responders[guildId].length === 0) {
       return interaction.reply({
         content: '❌ No autoresponders exist for this server.',
-        ephemeral: true
+        flags: MessageFlags.Ephemeral
       });
     }
 
@@ -33,7 +33,7 @@ module.exports = {
     if (index === -1) {
       return interaction.reply({
         content: `❌ No autoresponder found with trigger: "${trigger}"`,
-        ephemeral: true
+        flags: MessageFlags.Ephemeral
       });
     }
 

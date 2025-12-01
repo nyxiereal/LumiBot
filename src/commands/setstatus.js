@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, ActivityType } = require('discord.js');
+const { SlashCommandBuilder, ActivityType, MessageFlags } = require('discord.js');
 const { saveBotStatus } = require('../utils/database');
 
 const OWNER_ID = process.env.DISCORD_OWNER_ID;
@@ -52,7 +52,7 @@ module.exports = {
     if (!OWNER_ID || interaction.user.id !== OWNER_ID) {
       return interaction.reply({
         content: '❌ Only the bot owner can use this command.',
-        ephemeral: true
+        flags: MessageFlags.Ephemeral
       });
     }
 
@@ -70,13 +70,13 @@ module.exports = {
 
       await interaction.reply({
         content: `✅ Bot status updated to **${status}** - ${activityTypeNames[activity]} ${message}`,
-        ephemeral: true
+        flags: MessageFlags.Ephemeral
       });
     } catch (err) {
       console.error('Error setting bot status:', err);
       await interaction.reply({
         content: '❌ Failed to update bot status.',
-        ephemeral: true
+        flags: MessageFlags.Ephemeral
       });
     }
   },

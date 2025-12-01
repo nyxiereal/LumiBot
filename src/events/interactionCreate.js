@@ -1,3 +1,5 @@
+const { MessageFlags } = require('discord.js');
+
 module.exports = {
   name: 'interactionCreate',
   once: false,
@@ -22,7 +24,7 @@ module.exports = {
       console.error(`Error executing ${interaction.commandName}:`, error);
       const reply = {
         content: '❌ There was an error executing this command.',
-        ephemeral: true
+        flags: MessageFlags.Ephemeral
       };
       
       if (interaction.replied || interaction.deferred) {
@@ -49,7 +51,7 @@ async function handleButton(interaction) {
         console.error('Error handling plugins button:', error);
         await interaction.reply({
           content: '❌ Error loading plugins. Please try again.',
-          ephemeral: true
+          flags: MessageFlags.Ephemeral
         });
       }
     }
@@ -68,7 +70,7 @@ async function handleButton(interaction) {
             '*Use the manager to install and manage Aliucord*',
           color: 0x3DDC84
         }],
-        ephemeral: true
+        flags: MessageFlags.Ephemeral
       });
     } else {
       await interaction.reply({
@@ -80,7 +82,7 @@ async function handleButton(interaction) {
             '*If you don\'t know what root is, go with KettuManager*',
           color: 0x3DDC84
         }],
-        ephemeral: true
+        flags: MessageFlags.Ephemeral
       });
     }
     return;
@@ -96,7 +98,7 @@ async function handleButton(interaction) {
           '*If you don\'t know what jailbreak is, go with BTLoader*',
         color: 0x007AFF
       }],
-      ephemeral: true
+      flags: MessageFlags.Ephemeral
     });
     return;
   }
