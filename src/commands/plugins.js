@@ -97,11 +97,10 @@ function filterPlugins(plugins, search) {
 
 function formatPlugin(plugin) {
   let text = `[**${plugin.name}**](${plugin.downloadLink})\n`;
-  text += `||${plugin.description}`;
+  text += `${plugin.description}`;
   if (plugin.info) {
     text += ` - ${plugin.info}`;
   }
-  text += `||`;
   return text;
 }
 
