@@ -66,7 +66,7 @@ function filterPlugins(plugins, search) {
 }
 
 function formatPluginLine(plugin) {
-  let text = `[**${plugin.name}**](${plugin.url})\n`;
+  let text = `[${plugin.name}](${plugin.url})\n`;
   text += plugin.description;
   if (plugin.authors) {
     text += ` - ${plugin.authors}`;
