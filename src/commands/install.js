@@ -9,21 +9,14 @@ module.exports = {
     const isAliucord = interaction.guildId === '811255666990907402';
     
     if (isAliucord) {
-      const row = new ActionRowBuilder()
-        .addComponents(
-          new ButtonBuilder()
-            .setCustomId('install_android')
-            .setLabel('Android')
-            .setStyle(ButtonStyle.Success)
-        );
-
       await interaction.reply({
         embeds: [{
           title: 'Aliucord Installation',
-          description: 'Select your platform to get installation instructions:',
-          color: 0x5865F2
+          description: '**Download the Manager:**\n\n' +
+            '[Aliucord Manager](https://github.com/Aliucord/Manager/releases/latest)\n\n' +
+            '*Use the manager to install and manage Aliucord*',
+          color: 0x3DDC84
         }],
-        components: [row],
         ephemeral: true
       });
     } else {
