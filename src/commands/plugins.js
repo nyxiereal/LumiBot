@@ -18,7 +18,14 @@ function normalizePluginUrl(url) {
   if (url.includes("cdn.jsdelivr.net") && url.includes("@refs/heads/")) {
     return url
       .replace("cdn.jsdelivr.net/gh/", "github.com/")
-      .replace("@refs/heads/", "raw/");
+      .replace("@refs/heads/", "/raw/");
+  }
+
+  // Handle jsDelivr with @branch (without refs/heads)
+  if (url.includes("cdn.jsdelivr.net/gh/")) {
+    return url
+      .replace("cdn.jsdelivr.net/gh/", "github.com/")
+      .replace(/@([^/]+)\//, "/raw/$1/");
   }
 
   // Handle GitHub refs/heads
@@ -28,7 +35,7 @@ function normalizePluginUrl(url) {
 
   // Handle raw.githubusercontent refs/heads
   if (url.includes("raw.githubusercontent.com") && url.includes("/refs/heads/")) {
-    return url.replace("/refs/heads/", "");
+    return url.replace("/refs/heads/", "/");
   }
 
   return url;
