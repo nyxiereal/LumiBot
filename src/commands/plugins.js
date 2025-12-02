@@ -165,7 +165,8 @@ module.exports = {
     .addStringOption(option =>
       option.setName('search')
         .setDescription('Search for plugins by name, description, or author')
-        .setRequired(false))
+        .setRequired(false)
+        .setAutocomplete(true))
     .addBooleanOption(option =>
       option.setName('send')
         .setDescription('Send publicly or privately (default: private)')
@@ -239,6 +240,38 @@ module.exports = {
     
     const reply = await message.reply(replyOptions);
     setTimeout(() => reply.delete().catch(() => {}), 30000);
+  },
+
+  async autocomplete(interaction) {
+    try {
+      const focusedValue = interaction.options.getFocused();
+      const allPlugins = await fetchPlugins();
+      
+      // Get plugin names matching the focused value
+      let matches = allPlugins
+        .filter(plugin => plugin.name.toLowerCase().includes(focusedValue.toLowerCase()))
+        .slice(0, 25) // Discord limits to 25 choices
+        .map(plugin => ({
+          name: plugin.name,
+          value: plugin.name
+        }));
+      
+      // If no matches, show plugins that start with the input
+      if (matches.length === 0) {
+        matches = allPlugins
+          .filter(plugin => plugin.name.toLowerCase().startsWith(focusedValue.toLowerCase()))
+          .slice(0, 25)
+          .map(plugin => ({
+            name: plugin.name,
+            value: plugin.name
+          }));
+      }
+      
+      await interaction.respond(matches);
+    } catch (err) {
+      console.error('Error in autocomplete:', err);
+      await interaction.respond([]).catch(() => {});
+    }
   },
 
   handleButton,
