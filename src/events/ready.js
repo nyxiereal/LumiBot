@@ -37,6 +37,7 @@ module.exports = {
 
     await loadAutoresponders();
 
+    pluginsCommand.clearPluginCache();
     await pluginsCommand.initializePluginCache();
     
     const intervals = await loadMinkyIntervalsFromDb();

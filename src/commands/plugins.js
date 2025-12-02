@@ -7,6 +7,12 @@ let cachedPlugins = [];
 let cacheTimestamp = 0;
 const CACHE_DURATION = 12 * 60 * 60 * 1000; // 12 hours
 
+// Force cache refresh on startup
+function clearPluginCache() {
+  cachedPlugins = [];
+  cacheTimestamp = 0;
+}
+
 function normalizePluginUrl(url) {
   try {
     // raw.githubusercontent.com /refs/heads/ → github.com /raw/ conversion
@@ -251,5 +257,6 @@ module.exports = {
   handleButton,
   fetchPlugins,
   filterPlugins,
-  initializePluginCache
+  initializePluginCache,
+  clearPluginCache
 };
